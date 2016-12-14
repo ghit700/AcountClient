@@ -7,4 +7,5 @@ import com.nan.acountclient.ui.BaseActivity;
  */
 
 public class MainActivity extends BaseActivity {
+
 }

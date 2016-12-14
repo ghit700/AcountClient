@@ -5,6 +5,7 @@ package com.nan.acountclient.config;
  */
 
 public class Config {
+
     /**
      * 类的源包名
      */

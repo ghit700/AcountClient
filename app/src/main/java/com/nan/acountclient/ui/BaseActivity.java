@@ -5,4 +5,5 @@ package com.nan.acountclient.ui;
  */
 
 public class BaseActivity {
+
 }

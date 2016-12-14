@@ -11,6 +11,7 @@ import static com.nan.acountclient.config.Config.LOGLEVEL;
  * Created by wzn on 2016/9/12.
  */
 public class Logger {
+
     public static final String DEFAULT_TAG = "Logger";
     public static String TAG;
 

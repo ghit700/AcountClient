@@ -16,6 +16,7 @@ import java.util.Set;
  * @author zhengjinfeng
  */
 public class QueryCondition {
+
     /**
      * 表名
      **/

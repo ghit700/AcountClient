@@ -25,7 +25,6 @@ import java.util.Set;
 
 public class Db {
 
-
     /**
      * 缓存注解表数据
      */
