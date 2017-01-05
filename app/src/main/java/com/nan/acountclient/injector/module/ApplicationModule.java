@@ -22,8 +22,8 @@ public class ApplicationModule {
 
     public ApplicationModule(Context mContext) {
         this.mContext = mContext;
-        mDb=Db.getInstance();
         mDb.init(new TableHelper(mContext));
+        mDb=Db.getInstance();
     }
 
     @Singleton
@@ -37,7 +37,7 @@ public class ApplicationModule {
         long uid= PreferenceManager.getDefaultSharedPreferences(mContext).getLong("loginUid",-1);
         User user=null;
         if (uid!=-1){
-            user=mDb.queryById(User.class,uid);
+            user=Db.getInstance().queryById(User.class,uid);
         }
         return user;
     }
