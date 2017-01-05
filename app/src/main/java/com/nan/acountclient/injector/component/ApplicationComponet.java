@@ -1,8 +1,8 @@
 package com.nan.acountclient.injector.component;
 
-import android.content.Context;
 
-import com.newsclient.nan.newsclient.injector.module.ApplicationModule;
+
+import com.nan.acountclient.injector.module.ApplicationModule;
 
 import dagger.Component;
 
@@ -11,8 +11,4 @@ import dagger.Component;
  */
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponet {
-
-
-
-
 }

@@ -1,9 +1,11 @@
 package com.nan.acountclient.injector.module;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 
-import com.newsclient.nan.newsclient.components.db.Db;
-import com.newsclient.nan.newsclient.components.db.TableHelper;
+import com.nan.acountclient.components.db.Db;
+import com.nan.acountclient.components.db.TableHelper;
+import com.nan.acountclient.entity.User;
 
 import javax.inject.Singleton;
 
@@ -16,15 +18,27 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
     private final Context mContext;
+    private final Db mDb;
 
     public ApplicationModule(Context mContext) {
         this.mContext = mContext;
+        mDb=Db.getInstance();
+        mDb.init(new TableHelper(mContext));
     }
 
     @Singleton
     @Provides
     public Db provideDb() {
-        Db.getInstance().init(new TableHelper(mContext));
-        return Db.getInstance();
+        return mDb;
+    }
+    @Singleton
+    @Provides
+    public User provideUser(){
+        long uid= PreferenceManager.getDefaultSharedPreferences(mContext).getLong("loginUid",-1);
+        User user=null;
+        if (uid!=-1){
+            user=mDb.queryById(User.class,uid);
+        }
+        return user;
     }
 }
