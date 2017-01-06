@@ -29,6 +29,13 @@ public class AccountApplication extends Application {
         ToastUtils.register(this);
         FreelineCore.init(this);
         LeakCanary.install(this);
-        mComponet = DaggerApplicationComponet.builder().applicationModule(new ApplicationModule(this)).build();
+        mComponet = DaggerApplicationComponet.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
+        mComponet.inject(this);
+    }
+
+    public ApplicationComponet getComponet(){
+        return mComponet;
     }
 }

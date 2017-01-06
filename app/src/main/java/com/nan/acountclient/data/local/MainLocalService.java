@@ -15,7 +15,6 @@ public interface MainLocalService {
 
     /**
      * 登出
-     * @param user
      */
      void logout(User user);
 }

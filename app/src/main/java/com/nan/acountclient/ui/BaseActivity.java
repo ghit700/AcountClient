@@ -6,26 +6,35 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.nan.acountclient.components.app.AccountApplication;
+import com.nan.acountclient.injector.component.ActivityComponent;
+import com.nan.acountclient.injector.component.ApplicationComponet;
+import com.nan.acountclient.injector.component.DaggerActivityComponent;
+import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.ui.login.LoginActivity;
 import com.nan.acountclient.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Created by wzn on 2016/12/12.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
-    List<Activity> mLstActivity;
+    ActivityComponent mBaseComponent;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +52,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         AppUtils.remove(this);
     }
 
-    public void init(){
+    public void init() {
         setStatusBar();
         initComponent();
         AppUtils.add(this);
+        ButterKnife.inject(this);
     }
 
     protected abstract void getLayout();
@@ -62,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 沉浸状态栏
      */
-    private  void setStatusBar(){
+    private void setStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -74,13 +84,17 @@ public abstract class BaseActivity extends AppCompatActivity {
             window.setStatusBarColor(Color.TRANSPARENT);
             //window.setNavigationBarColor(Color.TRANSPARENT);
         }
+
     }
 
     /**
      * 初始化注入器
      */
-    protected void initComponent(){
+    protected abstract void initComponent();
 
+    protected ApplicationComponet getApplicationComponent(){
+       return  ((AccountApplication) getApplication()).getComponet();
     }
+
 
 }

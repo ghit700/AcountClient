@@ -5,6 +5,12 @@ import android.util.Log;
 
 import com.nan.acountclient.config.Config;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+import static b.focused.w;
 import static com.nan.acountclient.config.Config.LOGLEVEL;
 
 /**
@@ -12,99 +18,67 @@ import static com.nan.acountclient.config.Config.LOGLEVEL;
  */
 public class Logger {
 
-    public static final String DEFAULT_TAG = "Logger";
-    public static String TAG;
+    public static final String DEFAULT_TAG = "account_Logger";
 
-    private static int VERBOSE = 1;
-    private static int DEBUG = 2;
-    private static int INFO = 3;
-    private static int WARN = 4;
-    private static int ERROR = 5;
+    private static int WARN = 0;
 
-
-    public static void v(String tag, String msg) {
-        if (Config.LOGLEVEL > VERBOSE && !TextUtils.isEmpty(msg)) {
-            if (TextUtils.isEmpty(tag)) tag = DEFAULT_TAG;
-            Log.v(tag, msg);
-        }
-    }
-
-    public static void d(String tag, String msg) {
-        if (Config.LOGLEVEL > DEBUG && !TextUtils.isEmpty(msg)) {
-            if (TextUtils.isEmpty(tag)) tag = DEFAULT_TAG;
-            Log.d(tag, msg);
-        }
-    }
-
-    public static void i(String tag, String msg) {
-        if (Config.LOGLEVEL > INFO && !TextUtils.isEmpty(msg)) {
-            if (TextUtils.isEmpty(tag)) tag = DEFAULT_TAG;
-            Log.i(tag, msg);
-        }
-    }
 
     public static void w(String tag, String msg) {
         if (Config.LOGLEVEL > WARN && !TextUtils.isEmpty(msg)) {
             if (TextUtils.isEmpty(tag)) tag = DEFAULT_TAG;
-            Log.w(tag, msg);
+            {
+                Log.w(tag, "==========================================================");
+                StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
+                Log.w(tag, "(" + targetStackTraceElement.getFileName() + ":"
+                        + targetStackTraceElement.getLineNumber() + ")");
+                Log.w(tag, msg);
+                Log.w(tag, "==========================================================");
+            }
         }
     }
 
-    public static void e(String tag, String msg) {
-        if (Config.LOGLEVEL > ERROR && !TextUtils.isEmpty(msg)) {
-            if (TextUtils.isEmpty(tag)) tag = DEFAULT_TAG;
-            Log.e(tag, msg);
+    public static void json(String jsonStr) {
+        try {
+            jsonStr = jsonStr.trim();
+            if (jsonStr.startsWith("{")) {
+                JSONObject jsonObject = new JSONObject(jsonStr);
+                w(DEFAULT_TAG, jsonObject.toString());
+            }
+            if (jsonStr.startsWith("[")) {
+                JSONArray jsonArray = new JSONArray(jsonStr);
+                w(DEFAULT_TAG, jsonArray.toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        w(DEFAULT_TAG, "Invalid Json, Please Check: " + jsonStr);
     }
 
-    public static void e(String tag, Throwable throwable) {
-        if (Config.LOGLEVEL > ERROR && throwable != null) {
-            if (TextUtils.isEmpty(tag)) tag = DEFAULT_TAG;
-            Log.e(tag, throwable.getLocalizedMessage());
-        }
-    }
-
-    public static void v(String str) {
-        v(TAG, str);
-    }
-
-    public static void d(String str) {
-        d(TAG, str);
-    }
-
-    public static void i(String str) {
-        i(TAG, str);
-    }
 
     public static void w(String str) {
-        w(TAG, str);
+        w(DEFAULT_TAG, str);
     }
 
-    public static void e(String str) {
-        e(TAG, str);
-    }
-
-    public static void v(Number number) {
-        v(TAG, "Number is :" + String.valueOf(number));
-    }
-
-    public static void d(Number number) {
-        d(TAG, "Number is :" + String.valueOf(number));
-    }
-
-    public static void i(Number number) {
-        i(TAG, "Number is :" + String.valueOf(number));
-    }
 
     public static void w(Number number) {
-        w(TAG, "Number is :" + String.valueOf(number));
+        w(DEFAULT_TAG, "Number is :" + String.valueOf(number));
     }
 
-    public static void e(Number number) {
-        e(TAG, "Number is :" + String.valueOf(number));
+    private static StackTraceElement getTargetStackTraceElement() {
+        // find the target invoked method
+        StackTraceElement targetStackTrace = null;
+        boolean shouldTrace = false;
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            boolean isLogMethod = stackTraceElement.getClassName().equals(Logger.class.getName());
+            if (shouldTrace && !isLogMethod) {
+                targetStackTrace = stackTraceElement;
+                break;
+            }
+            shouldTrace = isLogMethod;
+        }
+        return targetStackTrace;
     }
 
-    public static void e(Throwable throwable) {
-        e(TAG, throwable);
-    }
+
 }

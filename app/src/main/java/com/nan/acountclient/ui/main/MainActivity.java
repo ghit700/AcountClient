@@ -31,6 +31,11 @@ public class MainActivity extends BarActivity{
     }
 
     @Override
+    protected void initComponent() {
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
