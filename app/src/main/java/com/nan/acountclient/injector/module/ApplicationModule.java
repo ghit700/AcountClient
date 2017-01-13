@@ -11,7 +11,7 @@ import com.nan.acountclient.config.Config;
 import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.data.local.impl.MainLocalServiceImpl;
 import com.nan.acountclient.data.remote.MainRemoteService;
-import com.nan.acountclient.data.remote.impl.MainRemoteServiceImpl;
+import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
 
 import java.util.concurrent.TimeUnit;
@@ -21,16 +21,15 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
 
 /**
  * Created by wzn on 2016/11/28.
  */
 @Module
 public class ApplicationModule {
-    private final Context mContext;
-    private final Db mDb;
-    private final OkHttpClient client;
+    public final Context mContext;
+    public final Db mDb;
+    public final OkHttpClient client;
 
     public ApplicationModule(Context mContext) {
         this.mContext = mContext;
@@ -70,8 +69,8 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    public MainRemoteService provideMainRemoteService() {
-        return new MainRemoteServiceImpl(client);
+    public MainRemoteServiceAPI provideMainRemoteService() {
+        return new MainRemoteServiceAPI(client);
     }
 
     @Singleton

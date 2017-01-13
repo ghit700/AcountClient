@@ -1,6 +1,8 @@
 package com.nan.acountclient.components.okhttp;
 
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
@@ -92,7 +94,7 @@ public class HttpLoggingInterceptor implements Interceptor {
          */
         Logger DEFAULT = new Logger() {
             @Override public void log(String message) {
-                com.nan.acountclient.utils.Logger.w(message);
+                Log.w("http",message);
             }
         };
     }
@@ -107,7 +109,7 @@ public class HttpLoggingInterceptor implements Interceptor {
 
     private final Logger logger;
 
-    private volatile Level level = Level.NONE;
+    private volatile Level level = Level.BODY;
 
     /**
      * Change the level at which this interceptor logs.

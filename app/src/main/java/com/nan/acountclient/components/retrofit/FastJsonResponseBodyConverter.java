@@ -1,6 +1,7 @@
 package com.nan.acountclient.components.retrofit;
 
 import com.alibaba.fastjson.JSON;
+import com.nan.acountclient.utils.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,12 +26,9 @@ public class FastJsonResponseBodyConverter<T> implements Converter<ResponseBody,
         this.charset = charset;
     }
 
-    @Override public T convert(ResponseBody value) throws IOException {
-        try {
-            return JSON.parseObject(value.string(), type);
-        } finally {
-            value.close();
-        }
+    @Override
+    public T convert(ResponseBody value) throws IOException {
+        return JSON.parseObject(value.string(), type);
     }
 
 }

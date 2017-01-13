@@ -1,10 +1,8 @@
 package com.nan.acountclient.injector.component;
 
 import com.nan.acountclient.injector.PerActivity;
-import com.nan.acountclient.injector.module.ActivityModule;
-import com.nan.acountclient.ui.login.LoginActivity;
+import com.nan.acountclient.ui.login.LoginModule;
 
-import javax.inject.Singleton;
 
 import dagger.Component;
 
@@ -12,7 +10,6 @@ import dagger.Component;
  * Created by wzn on 2016/11/28.
  */
 @PerActivity
-@Component(dependencies = ApplicationComponet.class, modules = ActivityModule.class)
+@Component(dependencies = ApplicationComponet.class, modules = LoginModule.class)
 public interface ActivityComponent {
-    void inject(LoginActivity loginActivity);
 }

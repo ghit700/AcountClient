@@ -2,10 +2,15 @@ package com.nan.acountclient.data.remote;
 
 
 import com.nan.acountclient.entity.User;
+import com.nan.acountclient.entity.UserData;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -15,18 +20,17 @@ import rx.Observable;
 public interface MainRemoteService {
     /**
      * 登陆
-     * @param loginName
-     * @param pwd
+     * @param where
      * @return
      */
-    @GET("/user")
-    Observable<User> login(String loginName,String pwd);
+    @GET("user")
+    Observable<UserData> login(@Query("where")String where);
 
     /**
      * 注册
      * @return
      */
-    @POST("/user")
+    @POST("user")
     Observable<User> register(@Body User user);
 
 }

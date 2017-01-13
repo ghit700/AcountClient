@@ -1,9 +1,11 @@
 package com.nan.acountclient.data.remote.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nan.acountclient.components.retrofit.FastJsonConverterFactory;
 import com.nan.acountclient.config.Config;
 import com.nan.acountclient.data.remote.MainRemoteService;
 import com.nan.acountclient.entity.User;
+import com.nan.acountclient.entity.UserData;
 
 import javax.inject.Inject;
 
@@ -11,19 +13,19 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Observable;
-import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by wzn on 2017/1/5.
  */
 
-public class MainRemoteServiceImpl implements MainRemoteService {
+public class MainRemoteServiceAPI {
     private Retrofit mRetrofit;
     private MainRemoteService mainRemoteService;
 
     @Inject
-    public MainRemoteServiceImpl(OkHttpClient client) {
+    public MainRemoteServiceAPI(OkHttpClient client) {
         mRetrofit = new Retrofit.Builder()
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .client(client)
@@ -34,12 +36,13 @@ public class MainRemoteServiceImpl implements MainRemoteService {
     }
 
 
-    @Override
-    public Observable<User> login(String loginName, String pwd) {
-        return mainRemoteService.login(loginName, pwd).subscribeOn(Schedulers.io());
+    public Observable<UserData> login(String loginName, String pwd) {
+        User user=new User();
+        user.setLoginName(loginName);
+        user.setPassword(pwd);
+        return mainRemoteService.login(JSONObject.toJSONString(user)).subscribeOn(Schedulers.io());
     }
 
-    @Override
     public Observable<User> register(User user) {
         return mainRemoteService.register(user).subscribeOn(Schedulers.io());
     }

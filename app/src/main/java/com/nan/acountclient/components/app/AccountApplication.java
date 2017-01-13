@@ -32,7 +32,6 @@ public class AccountApplication extends Application {
         mComponet = DaggerApplicationComponet.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-        mComponet.inject(this);
     }
 
     public ApplicationComponet getComponet(){

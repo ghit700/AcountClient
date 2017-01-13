@@ -3,6 +3,8 @@ package com.nan.acountclient.entity;
 import com.nan.acountclient.components.db.annotation.Column;
 import com.nan.acountclient.components.db.annotation.Table;
 
+import java.util.List;
+
 /**
  * Created by wzn on 2017/1/5.
  */
@@ -35,6 +37,10 @@ public class User {
      */
     @Column("account_img")
     private String accountImg;
+    private String createdAt;
+    private String objectId;
+    private String updatedAt;
+
 
     public long getId() {
         return id;
@@ -83,5 +89,29 @@ public class User {
 
     public void setAccountImg(String accountImg) {
         this.accountImg = accountImg;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

@@ -25,7 +25,7 @@ public class Config {
     /**
      * baseapi
      */
-    public final static String BASE_API = "https://api.bmob.cn/1/classes";
+    public final static String BASE_API = "https://api.bmob.cn/1/classes/";
     /**
      * 连接超时
      */
