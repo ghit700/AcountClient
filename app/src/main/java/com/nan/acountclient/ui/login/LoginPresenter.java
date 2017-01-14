@@ -2,26 +2,17 @@ package com.nan.acountclient.ui.login;
 
 import android.support.annotation.NonNull;
 
-import com.alibaba.fastjson.JSONArray;
 import com.nan.acountclient.components.retrofit.ErrorAction;
 import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
-import com.nan.acountclient.entity.UserData;
+import com.nan.acountclient.entity.data.UserData;
 import com.nan.acountclient.ui.BaseView;
-import com.nan.acountclient.utils.Logger;
 
-import org.apache.commons.logging.Log;
-
-import java.io.Console;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

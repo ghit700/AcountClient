@@ -1,6 +1,6 @@
 package com.nan.acountclient.components.retrofit;
 
-import com.nan.acountclient.entity.ErrorData;
+import com.nan.acountclient.entity.data.ErrorData;
 
 import rx.functions.Action1;
 

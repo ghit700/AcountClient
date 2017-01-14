@@ -1,4 +1,4 @@
-package com.nan.acountclient.entity;
+package com.nan.acountclient.entity.data;
 
 import com.alibaba.fastjson.JSONObject;
 

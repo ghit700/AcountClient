@@ -4,18 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.nan.acountclient.components.retrofit.FastJsonConverterFactory;
 import com.nan.acountclient.config.Config;
 import com.nan.acountclient.data.remote.MainRemoteService;
-import com.nan.acountclient.entity.ErrorData;
 import com.nan.acountclient.entity.User;
-import com.nan.acountclient.entity.UserData;
+import com.nan.acountclient.entity.data.UserData;
 
 import javax.inject.Inject;
 
 import okhttp3.OkHttpClient;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
