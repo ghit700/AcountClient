@@ -1,6 +1,8 @@
 package com.nan.acountclient.data.remote;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.nan.acountclient.entity.ErrorData;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.UserData;
 
@@ -31,6 +33,6 @@ public interface MainRemoteService {
      * @return
      */
     @POST("user")
-    Observable<User> register(@Body User user);
+    Observable<UserData> register(@Body User user);
 
 }

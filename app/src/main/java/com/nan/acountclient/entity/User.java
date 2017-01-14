@@ -11,7 +11,7 @@ import java.util.List;
 @Table("user")
 public class User {
     @Column("id")
-    private long id;
+    private Long id;
     /**
      * 账号
      */
@@ -42,11 +42,11 @@ public class User {
     private String updatedAt;
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

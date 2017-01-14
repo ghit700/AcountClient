@@ -32,6 +32,7 @@ public class AccountApplication extends Application {
         mComponet = DaggerApplicationComponet.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+        ToastUtils.register(this);
     }
 
     public ApplicationComponet getComponet(){

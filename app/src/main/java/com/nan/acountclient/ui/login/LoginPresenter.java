@@ -3,10 +3,12 @@ package com.nan.acountclient.ui.login;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSONArray;
+import com.nan.acountclient.components.retrofit.ErrorAction;
 import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.UserData;
+import com.nan.acountclient.ui.BaseView;
 import com.nan.acountclient.utils.Logger;
 
 import org.apache.commons.logging.Log;
@@ -40,8 +42,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Inject
     @Override
-    public void attachView(@NonNull LoginContract.View view) {
-        mLoginView = view;
+    public void attachView(@NonNull BaseView view) {
+        mLoginView = (LoginContract.View) view;
     }
 
     @Override
@@ -57,12 +59,19 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void call(UserData userData) {
                         List<User> lstUsers = userData.results;
-                        Logger.w(JSONArray.toJSONString(lstUsers));
+                        mLoginView.hideLoading();
+                        if(lstUsers!=null&&lstUsers.size()>0){
+                            User user=lstUsers.get(0);
+                            localService.login(user);
+
+                        }else{
+                            mLoginView.loginFail("登陆失败，账号或密码错误。");
+                        }
                     }
-                }, new Action1<Throwable>() {
+                }, new ErrorAction() {
                     @Override
-                    public void call(Throwable throwable) {
-                        Logger.w(throwable.toString());
+                    public void call(String msg) {
+                        mLoginView.hideLoading();
                     }
                 });
     }

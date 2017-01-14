@@ -1,5 +1,6 @@
 package com.nan.acountclient.ui.login;
 
+import com.nan.acountclient.entity.User;
 import com.nan.acountclient.ui.BasePresenter;
 import com.nan.acountclient.ui.BaseView;
 
@@ -13,12 +14,12 @@ public interface LoginContract {
 
         void hideLoading();
 
-        void loginSuccess();
+        void loginSuccess(User user);
 
         void loginFail(String err);
     }
 
-    interface Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter {
         void login(String loginName, String pwd);
     }
 }

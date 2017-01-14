@@ -5,7 +5,10 @@ import android.widget.Button;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.entity.User;
+import com.nan.acountclient.injector.component.DaggerActivityComponent;
+import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.ui.BaseActivity;
+import com.nan.acountclient.utils.ToastUtils;
 
 import javax.inject.Inject;
 
@@ -53,10 +56,11 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     protected void initComponent() {
-        DaggerRegisterComponent.builder()
+        DaggerActivityComponent.builder()
                 .applicationComponet(getApplicationComponent())
-                .registerModule(new RegisterModule(this))
-                .build().inject(this);
+                .activityModule(new ActivityModule(this,this))
+                .build()
+                .inject(this);
     }
 
 
@@ -87,6 +91,6 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     public void registerFail(String err) {
-
+        ToastUtils.showToast(err);
     }
 }

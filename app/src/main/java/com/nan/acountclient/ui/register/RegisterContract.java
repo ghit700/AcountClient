@@ -19,7 +19,7 @@ public interface RegisterContract {
         void registerFail(String err);
     }
 
-    interface Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter {
         void register(User user);
     }
 }

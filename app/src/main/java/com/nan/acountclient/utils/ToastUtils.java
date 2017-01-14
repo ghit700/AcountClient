@@ -11,7 +11,7 @@ public class ToastUtils {
     public static Context mContext;
 
     public static void register(Context context) {
-        mContext = context.getApplicationContext();
+        mContext = context;
     }
 
     public static void showToast(int resId) {

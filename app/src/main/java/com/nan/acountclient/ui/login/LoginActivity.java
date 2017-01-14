@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.entity.User;
+import com.nan.acountclient.injector.component.DaggerActivityComponent;
+import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.ui.BaseActivity;
 import com.nan.acountclient.ui.register.RegisterActivity;
 import com.nan.acountclient.utils.AppUtils;
@@ -43,10 +45,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void initComponent() {
-        DaggerLoginComponent.builder()
+        DaggerActivityComponent.builder()
                 .applicationComponet(getApplicationComponent())
-                .loginModule(new LoginModule(this))
-                .build().inject(this);
+                .activityModule(new ActivityModule(this, this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -93,7 +96,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(User user) {
 
     }
 
