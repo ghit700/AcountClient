@@ -63,7 +63,7 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    public OkHttpClient provideOkHttpClient(Context context) {
+    public OkHttpClient provideOkHttpClient() {
         return client;
     }
 
@@ -76,7 +76,7 @@ public class ApplicationModule {
     @Singleton
     @Provides
     public MainLocalService provideMainLocalService() {
-        return new MainLocalServiceImpl(mDb);
+        return new MainLocalServiceImpl(mDb,mContext);
     }
 
 

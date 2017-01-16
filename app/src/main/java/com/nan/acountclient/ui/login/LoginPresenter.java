@@ -1,13 +1,15 @@
 package com.nan.acountclient.ui.login;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.nan.acountclient.components.retrofit.ErrorAction;
 import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
-import com.nan.acountclient.entity.data.UserData;
+import com.nan.acountclient.entity.data.DataResult;
 import com.nan.acountclient.ui.BaseView;
+import com.nan.acountclient.utils.StringUtils;
 
 import java.util.List;
 
@@ -44,18 +46,26 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void login(String loginName, String pwd) {
+        if (StringUtils.isNullBlank(loginName)) {
+            mLoginView.loginFail("账号为空，请输入");
+            return;
+        }
+        if (StringUtils.isNullBlank(pwd)) {
+            mLoginView.loginFail("密码为空，请输入");
+            return;
+        }
+        mLoginView.showLoading();
         remoteServiceAPI.login(loginName, pwd)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<UserData>() {
+                .subscribe(new Action1<DataResult>() {
                     @Override
-                    public void call(UserData userData) {
+                    public void call(DataResult userData) {
                         List<User> lstUsers = userData.results;
                         mLoginView.hideLoading();
-                        if(lstUsers!=null&&lstUsers.size()>0){
-                            User user=lstUsers.get(0);
+                        if (lstUsers != null && lstUsers.size() > 0) {
+                            User user = lstUsers.get(0);
                             localService.login(user);
-
-                        }else{
+                        } else {
                             mLoginView.loginFail("登陆失败，账号或密码错误。");
                         }
                     }
@@ -63,6 +73,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void call(String msg) {
                         mLoginView.hideLoading();
+                        mLoginView.loginFail(msg);
                     }
                 });
     }

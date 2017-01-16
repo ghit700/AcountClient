@@ -5,7 +5,7 @@ import com.nan.acountclient.components.retrofit.FastJsonConverterFactory;
 import com.nan.acountclient.config.Config;
 import com.nan.acountclient.data.remote.MainRemoteService;
 import com.nan.acountclient.entity.User;
-import com.nan.acountclient.entity.data.UserData;
+import com.nan.acountclient.entity.data.DataResult;
 
 import javax.inject.Inject;
 
@@ -35,14 +35,14 @@ public class MainRemoteServiceAPI {
     }
 
 
-    public Observable<UserData> login(String loginName, String pwd) {
+    public Observable<DataResult<User>> login(String loginName, String pwd) {
         User user = new User();
         user.setLoginName(loginName);
         user.setPassword(pwd);
         return mainRemoteService.login(JSONObject.toJSONString(user)).subscribeOn(Schedulers.io());
     }
 
-    public Observable<UserData>  register(User user) {
+    public Observable<DataResult<User>>  register(User user) {
         return mainRemoteService.register(user).subscribeOn(Schedulers.io());
     }
 }

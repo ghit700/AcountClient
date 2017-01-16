@@ -2,7 +2,7 @@ package com.nan.acountclient.data.remote;
 
 
 import com.nan.acountclient.entity.User;
-import com.nan.acountclient.entity.data.UserData;
+import com.nan.acountclient.entity.data.DataResult;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,13 +21,13 @@ public interface MainRemoteService {
      * @return
      */
     @GET("user")
-    Observable<UserData> login(@Query("where")String where);
+    Observable<DataResult<User>> login(@Query("where")String where);
 
     /**
      * 注册
      * @return
      */
     @POST("user")
-    Observable<UserData> register(@Body User user);
+    Observable<DataResult<User>> register(@Body User user);
 
 }

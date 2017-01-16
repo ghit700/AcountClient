@@ -1,5 +1,8 @@
 package com.nan.acountclient.ui.login;
 
+import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +17,7 @@ import com.nan.acountclient.utils.AppUtils;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -35,6 +39,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Inject
     LoginPresenter mPresenter;
+    @InjectView(R.id.rootView)
+    CoordinatorLayout rootView;
 
 
     @Override
@@ -96,12 +102,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void loginSuccess(User user) {
+    public void loginSuccess() {
 
     }
 
     @Override
     public void loginFail(String err) {
-
+        Snackbar.make(rootView,err,Snackbar.LENGTH_LONG).show();
     }
+
+
 }

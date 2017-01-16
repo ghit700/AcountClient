@@ -68,4 +68,6 @@ dependencies {
     //bmob-sms ：Bmob单独为短信服务提供的包
     compile 'cn.bmob.android:bmob-sms:1.0.1'
     //bmob-sdk:3.4.6需要依赖okhttp（2.4.0）、okio（2.4.0），而support-v4（23.2.1）及org.apache.http.legacy包则用于兼容Android6.0系统，具体可查看下面注释[1]的解释
+    //material库
+    compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
 }

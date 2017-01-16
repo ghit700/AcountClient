@@ -14,7 +14,7 @@ public interface LoginContract {
 
         void hideLoading();
 
-        void loginSuccess(User user);
+        void loginSuccess();
 
         void loginFail(String err);
     }

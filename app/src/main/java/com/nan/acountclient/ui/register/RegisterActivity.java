@@ -1,14 +1,15 @@
 package com.nan.acountclient.ui.register;
 
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
 
 import com.nan.acountclient.R;
-import com.nan.acountclient.entity.User;
 import com.nan.acountclient.injector.component.DaggerActivityComponent;
 import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.ui.BaseActivity;
-import com.nan.acountclient.utils.ToastUtils;
+import com.nan.acountclient.utils.AppUtils;
 
 import javax.inject.Inject;
 
@@ -28,6 +29,8 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     Button btnRegister;
     @Inject
     RegisterPresenter mPresenter;
+    @InjectView(R.id.rootView)
+    CoordinatorLayout rootView;
 
     @Override
     protected void getLayout() {
@@ -58,7 +61,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
     protected void initComponent() {
         DaggerActivityComponent.builder()
                 .applicationComponet(getApplicationComponent())
-                .activityModule(new ActivityModule(this,this))
+                .activityModule(new ActivityModule(this, this))
                 .build()
                 .inject(this);
     }
@@ -66,12 +69,10 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @OnClick(R.id.btnRegister)
     public void onClick() {
-        String pwd=etRegisterPwd.getText().toString();
-        String loginName=etRegisterLoginName.getText().toString();
-        User user=new User();
-        user.setPassword(pwd);
-        user.setLoginName(loginName);
-        mPresenter.register(user);
+        AppUtils.closeInputMethodManager(this);
+        String pwd = etRegisterPwd.getText().toString();
+        String loginName = etRegisterLoginName.getText().toString();
+        mPresenter.register(loginName, pwd);
     }
 
     @Override
@@ -91,6 +92,14 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     public void registerFail(String err) {
-        ToastUtils.showToast(err);
+        if (err.contains("账号")) {
+            etRegisterLoginName.setError(err);
+        } else if (err.contains("密码")) {
+            etRegisterPwd.setError(err);
+        }
+        Snackbar.make(rootView, err, Snackbar.LENGTH_LONG).show();
+
     }
+
+
 }

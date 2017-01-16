@@ -20,6 +20,6 @@ public interface RegisterContract {
     }
 
     interface Presenter extends BasePresenter {
-        void register(User user);
+        void register(String loginName ,String pwd);
     }
 }

@@ -6,4 +6,6 @@
     <string name="pwd">密码:</string>
     <string name="btn_login_submit">登陆</string>
     <string name="btn_register">注册</string>
+    <string name="login_name_empty">账号为空，请输入</string>
+    <string name="login_pwd_empty">密码为空，请输入</string>
 </resources>
