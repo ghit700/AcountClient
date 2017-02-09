@@ -3,14 +3,16 @@ package com.nan.acountclient.ui.register;
 import android.support.annotation.NonNull;
 
 import com.nan.acountclient.components.retrofit.ErrorAction;
+import com.nan.acountclient.components.rx.RxPresenter;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.data.DataResult;
-import com.nan.acountclient.ui.BaseView;
+import com.nan.acountclient.base.BaseView;
 import com.nan.acountclient.utils.StringUtils;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -18,7 +20,7 @@ import rx.functions.Action1;
  * Created by wzn on 2017/1/6.
  */
 
-public class RegisterPresenter implements RegisterContract.Presenter {
+public class RegisterPresenter extends RxPresenter<RegisterContract.View> implements RegisterContract.Presenter {
     private RegisterContract.View mView;
     private MainRemoteServiceAPI remoteServiceAPI;
 
@@ -26,18 +28,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     public RegisterPresenter(MainRemoteServiceAPI remoteService) {
         this.remoteServiceAPI = remoteService;
     }
-
-    @Inject
-    @Override
-    public void attachView(@NonNull BaseView view) {
-        mView = (RegisterContract.View) view;
-    }
-
-    @Override
-    public void detachView() {
-        mView = null;
-    }
-
 
     @Override
     public void register(String loginName, String pwd) {
@@ -54,7 +44,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         user.setPassword(pwd);
 
         mView.showLoading();
-        remoteServiceAPI.register(user)
+        Subscription subscription=remoteServiceAPI.register(user)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DataResult>() {
                     @Override
@@ -69,5 +59,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                         mView.registerFail(msg);
                     }
                 });
+        addSubscribe(subscription);
     }
 }

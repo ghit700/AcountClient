@@ -2,7 +2,6 @@ package com.nan.acountclient.data.local.impl;
 
 import android.content.Context;
 
-import com.nan.acountclient.components.db.Db;
 import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.utils.SettingPrefUtils;
@@ -18,26 +17,20 @@ import javax.inject.Inject;
 
 public class MainLocalServiceImpl implements MainLocalService {
 
-    private Db db;
     private Context mContext;
 
     @Inject
-    public MainLocalServiceImpl(Db db, Context context) {
-        this.db = db;
+    public MainLocalServiceImpl( Context context) {
         this.mContext = context;
     }
 
     @Override
     public void login(User user) {
-        db.save(user);
         SettingPrefUtils.setLoginUid(mContext, user.getId());
     }
 
     @Override
     public void logout(User user) {
-        User tempUser = new User();
-        tempUser.setId(user.getId());
-        tempUser.setName(user.getLoginName());
-        db.updateById(tempUser, user.getId());
+
     }
 }

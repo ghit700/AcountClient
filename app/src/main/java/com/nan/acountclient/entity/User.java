@@ -1,41 +1,35 @@
 package com.nan.acountclient.entity;
 
-import com.nan.acountclient.components.db.annotation.Column;
-import com.nan.acountclient.components.db.annotation.Table;
 
-import java.util.List;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by wzn on 2017/1/5.
  */
-@Table("user")
-public class User {
-    @Column("id")
+public class User extends RealmObject {
+    @PrimaryKey
     private Long id;
     /**
      * 账号
      */
-    @Column("login_name")
     private String loginName;
     /**
      * 名字
      */
-    @Column("name")
     private String name;
     /**
      * 密码
      */
-    @Column("password")
     private String password;
     /**
      * 邮箱
      */
-    @Column("mail")
     private String mail;
     /**
      * 账号头像
      */
-    @Column("account_img")
     private String accountImg;
     private String createdAt;
     private String objectId;

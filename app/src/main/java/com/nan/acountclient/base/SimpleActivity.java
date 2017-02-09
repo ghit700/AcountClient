@@ -1,45 +1,33 @@
-package com.nan.acountclient.ui;
+package com.nan.acountclient.base;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.nan.acountclient.components.app.AccountApplication;
-import com.nan.acountclient.injector.component.ActivityComponent;
-import com.nan.acountclient.injector.component.ApplicationComponet;
-import com.nan.acountclient.injector.component.DaggerActivityComponent;
-import com.nan.acountclient.injector.module.ActivityModule;
-import com.nan.acountclient.ui.login.LoginActivity;
 import com.nan.acountclient.utils.AppUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 
+import static com.nan.acountclient.R.id.tb;
 
 /**
- * Created by wzn on 2016/12/12.
+ * Created by wzn on 2017/2/9.
+ * 比较简单的activity，无需mvp
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView {
-
-    ActivityComponent mBaseComponent;
-
-
+public abstract class SimpleActivity extends AppCompatActivity{
+    protected Context mContext;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayout();
+        setContentView( getLayout());
         init();
         initIntent();
         initData();
@@ -55,12 +43,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public void init() {
         setStatusBar();
-        initComponent();
         AppUtils.add(this);
         ButterKnife.inject(this);
+        mContext=this;
     }
 
-    protected abstract void getLayout();
+    protected abstract int getLayout();
 
     protected abstract void initIntent();
 
@@ -85,17 +73,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             window.setStatusBarColor(Color.TRANSPARENT);
             //window.setNavigationBarColor(Color.TRANSPARENT);
         }
-
     }
 
-    /**
-     * 初始化注入器
-     */
-    protected abstract void initComponent();
-
-    protected ApplicationComponet getApplicationComponent(){
-       return  ((AccountApplication) getApplication()).getComponet();
+    protected void setToolBar(Toolbar toolBar, String title){
+        toolBar= (Toolbar) findViewById(tb);
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle(title);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
-
-
 }

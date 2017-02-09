@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.nan.acountclient.R;
 import com.nan.acountclient.injector.component.DaggerActivityComponent;
 import com.nan.acountclient.injector.module.ActivityModule;
-import com.nan.acountclient.ui.BaseActivity;
+import com.nan.acountclient.base.BaseActivity;
 import com.nan.acountclient.utils.AppUtils;
 
 import javax.inject.Inject;
@@ -20,27 +20,23 @@ import butterknife.OnClick;
  * Created by wzn on 2017/1/6.
  */
 
-public class RegisterActivity extends BaseActivity implements RegisterContract.View {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
     @InjectView(R.id.etRegisterLoginName)
     TextInputEditText etRegisterLoginName;
     @InjectView(R.id.etRegisterPwd)
     TextInputEditText etRegisterPwd;
     @InjectView(R.id.btnRegister)
     Button btnRegister;
-    @Inject
-    RegisterPresenter mPresenter;
+
     @InjectView(R.id.rootView)
     CoordinatorLayout rootView;
 
     @Override
-    protected void getLayout() {
-        setContentView(R.layout.activity_register);
+    protected int getLayout() {
+        return R.layout.activity_register;
     }
 
-    @Override
-    protected void initIntent() {
 
-    }
 
     @Override
     protected void initData() {
@@ -59,11 +55,7 @@ public class RegisterActivity extends BaseActivity implements RegisterContract.V
 
     @Override
     protected void initComponent() {
-        DaggerActivityComponent.builder()
-                .applicationComponet(getApplicationComponent())
-                .activityModule(new ActivityModule(this, this))
-                .build()
-                .inject(this);
+        getActivityComponent().inject(this);
     }
 
 

@@ -2,7 +2,7 @@ package com.nan.acountclient.injector.module;
 
 import android.app.Activity;
 
-import com.nan.acountclient.ui.BaseView;
+import com.nan.acountclient.base.BaseView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,23 +12,12 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
-    private final Activity activity;
-    private final BaseView mView;
 
-    public ActivityModule(Activity activity, BaseView view) {
-        this.activity = activity;
-        this.mView = view;
+    public ActivityModule() {
+
     }
 
-    @Provides
-    public BaseView provideView() {
-        return mView;
-    }
 
-    @Provides
-    public Activity provideActivity() {
-        return activity;
-    }
 
 
 }

@@ -7,13 +7,9 @@ package com.nan.acountclient.config;
 public class Config {
 
     /**
-     * 类的源包名
-     */
-    public final static String entity_package_path = "com.nan.acountclient.entity";
-    /**
      * 数据库名字
      */
-    public final static String db_name = "ACCOUNT_CLIENT_DB";
+    public final static String db_name = "ACCOUNT_CLIENT_DB.realm";
     /**
      * 数据库版本号
      */

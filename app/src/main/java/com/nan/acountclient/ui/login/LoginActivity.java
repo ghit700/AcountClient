@@ -1,6 +1,5 @@
 package com.nan.acountclient.ui.login;
 
-import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -8,16 +7,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nan.acountclient.R;
-import com.nan.acountclient.entity.User;
 import com.nan.acountclient.injector.component.DaggerActivityComponent;
 import com.nan.acountclient.injector.module.ActivityModule;
-import com.nan.acountclient.ui.BaseActivity;
+import com.nan.acountclient.base.BaseActivity;
 import com.nan.acountclient.ui.register.RegisterActivity;
 import com.nan.acountclient.utils.AppUtils;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -26,7 +23,7 @@ import butterknife.OnClick;
  * Created by wzn on 2016/12/25.
  */
 
-public class LoginActivity extends BaseActivity implements LoginContract.View {
+public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
     @InjectView(R.id.etLoginName)
     TextInputEditText etLoginName;
@@ -44,24 +41,17 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
 
     @Override
-    protected void getLayout() {
-        setContentView(R.layout.activity_login);
+    protected int getLayout() {
+       return R.layout.activity_login ;
 
     }
 
     @Override
     protected void initComponent() {
-        DaggerActivityComponent.builder()
-                .applicationComponet(getApplicationComponent())
-                .activityModule(new ActivityModule(this, this))
-                .build()
-                .inject(this);
+        getActivityComponent().inject(this);
     }
 
-    @Override
-    protected void initIntent() {
 
-    }
 
     @Override
     protected void initData() {
@@ -108,7 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void loginFail(String err) {
-        Snackbar.make(rootView,err,Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rootView, err, Snackbar.LENGTH_LONG).show();
     }
 
 

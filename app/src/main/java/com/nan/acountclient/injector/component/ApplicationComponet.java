@@ -1,13 +1,9 @@
 package com.nan.acountclient.injector.component;
 
 
-import com.nan.acountclient.components.app.AccountApplication;
 import com.nan.acountclient.data.local.MainLocalService;
-import com.nan.acountclient.data.remote.MainRemoteService;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.injector.module.ApplicationModule;
-import com.nan.acountclient.ui.BaseActivity;
-import com.nan.acountclient.ui.login.LoginActivity;
 
 import javax.inject.Singleton;
 

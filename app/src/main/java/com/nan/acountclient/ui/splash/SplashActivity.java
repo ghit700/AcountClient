@@ -1,16 +1,12 @@
 package com.nan.acountclient.ui.splash;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.nan.acountclient.R;
-import com.nan.acountclient.ui.BaseActivity;
 import com.nan.acountclient.ui.login.LoginActivity;
 import com.nan.acountclient.utils.AppUtils;
-import com.nan.acountclient.utils.Logger;
 
 /**
  * Created by wzn on 2016/12/25.

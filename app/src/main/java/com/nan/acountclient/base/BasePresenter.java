@@ -1,4 +1,4 @@
-package com.nan.acountclient.ui;
+package com.nan.acountclient.base;
 
 import android.support.annotation.NonNull;
 
@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
  */
 
 public interface BasePresenter<T extends BaseView> {
+
+
     void attachView(@NonNull T view);
 
     void detachView();
