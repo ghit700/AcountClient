@@ -1,5 +1,6 @@
 package com.nan.acountclient.ui.login;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -7,13 +8,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nan.acountclient.R;
-import com.nan.acountclient.injector.component.DaggerActivityComponent;
-import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.base.BaseActivity;
+import com.nan.acountclient.ui.main.MainActivity;
 import com.nan.acountclient.ui.register.RegisterActivity;
-import com.nan.acountclient.utils.AppUtils;
 
-import javax.inject.Inject;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -34,15 +32,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @InjectView(R.id.btnLoginRegister)
     Button btnLoginRegister;
 
-    @Inject
-    LoginPresenter mPresenter;
+
     @InjectView(R.id.rootView)
     CoordinatorLayout rootView;
 
 
     @Override
     protected int getLayout() {
-       return R.layout.activity_login ;
+        return R.layout.activity_login;
 
     }
 
@@ -50,7 +47,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     protected void initComponent() {
         getActivityComponent().inject(this);
     }
-
 
 
     @Override
@@ -76,7 +72,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mPresenter.login(etLoginName.getText().toString(), etPwd.getText().toString());
                 break;
             case R.id.btnLoginRegister:
-                AppUtils.start(this, RegisterActivity.class);
+                to(RegisterActivity.class, new Intent());
                 break;
         }
     }
@@ -93,7 +89,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void loginSuccess() {
-
+        to(MainActivity.class, new Intent());
+        finish();
     }
 
     @Override

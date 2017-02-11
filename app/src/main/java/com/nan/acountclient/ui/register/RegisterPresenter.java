@@ -21,7 +21,6 @@ import rx.functions.Action1;
  */
 
 public class RegisterPresenter extends RxPresenter<RegisterContract.View> implements RegisterContract.Presenter {
-    private RegisterContract.View mView;
     private MainRemoteServiceAPI remoteServiceAPI;
 
     @Inject

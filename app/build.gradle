@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.nan.acountclient"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,6 +23,8 @@ android {
     freeline {
         hack true
     }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -35,7 +37,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-
     //rx
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
@@ -70,6 +71,4 @@ dependencies {
     compile 'cn.bmob.android:bmob-sms:1.0.1'
     //bmob-sdk:3.4.6需要依赖okhttp（2.4.0）、okio（2.4.0），而support-v4（23.2.1）及org.apache.http.legacy包则用于兼容Android6.0系统，具体可查看下面注释[1]的解释
     //realm库
-
-
 }

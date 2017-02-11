@@ -1,9 +1,11 @@
 package com.nan.acountclient.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.nan.acountclient.R;
 import com.nan.acountclient.components.app.AccountApplication;
 import com.nan.acountclient.injector.component.ActivityComponent;
 import com.nan.acountclient.injector.component.ApplicationComponet;
@@ -92,17 +93,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     protected void setToolBar(Toolbar toolBar,String title){
-        toolBar= (Toolbar) findViewById(tb);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(title);
-        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+
     }
 
     protected ActivityComponent getActivityComponent(){
@@ -119,6 +114,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     protected ApplicationComponet getApplicationComponent(){
        return  ((AccountApplication) getApplication()).getComponet();
+    }
+    public void to(@NonNull final Class clazz, @NonNull final Intent intent){
+        intent.setClass(this,clazz);
+        startActivity(intent);
+    }
+    public void toForResult(@NonNull final Class clazz, @NonNull final Intent intent,@NonNull int requestCode){
+        intent.setClass(this,clazz);
+        startActivityForResult(intent,requestCode);
     }
 
 

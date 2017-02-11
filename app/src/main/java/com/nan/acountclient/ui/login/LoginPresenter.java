@@ -1,6 +1,5 @@
 package com.nan.acountclient.ui.login;
 
-import android.support.annotation.NonNull;
 
 import com.nan.acountclient.components.retrofit.ErrorAction;
 import com.nan.acountclient.components.rx.RxPresenter;
@@ -8,7 +7,6 @@ import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.data.DataResult;
-import com.nan.acountclient.base.BaseView;
 import com.nan.acountclient.ui.login.LoginContract.View;
 import com.nan.acountclient.utils.StringUtils;
 
@@ -20,7 +18,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by wzn on 2017/1/6.
@@ -58,6 +55,7 @@ public class LoginPresenter extends RxPresenter<View> implements LoginContract.P
                         if (lstUsers != null && lstUsers.size() > 0) {
                             User user = lstUsers.get(0);
                             localService.login(user);
+                            mView.loginSuccess();
                         } else {
                             mView.loginFail("登陆失败，账号或密码错误。");
                         }

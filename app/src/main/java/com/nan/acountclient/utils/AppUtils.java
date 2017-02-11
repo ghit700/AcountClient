@@ -34,17 +34,7 @@ public class AppUtils {
         }
     }
 
-    public static  void start(Context context, Class clazz){
-        Intent intent=new Intent();
-        intent.setClass(context, clazz);
-        context.startActivity(intent);
-    }
-    public static  void start(Context context,Class clazz,Bundle bundle){
-        Intent intent=new Intent();
-        intent.setClass(context, clazz);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
-    }
+
 
     /**
      * 判断网络是否链接
