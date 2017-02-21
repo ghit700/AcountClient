@@ -1,11 +1,11 @@
 package com.nan.acountclient.utils;
 
 import android.annotation.TargetApi;
-import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.text.TextUtils;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
