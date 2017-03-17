@@ -8,4 +8,9 @@
     <string name="btn_register">注册</string>
     <string name="login_name_empty">账号为空，请输入</string>
     <string name="login_pwd_empty">密码为空，请输入</string>
+    <string name="login_progress_hirt">登陆中...</string>
+    <!--register-->
+    <string name="register_progress_hirt">注册中...</string>
+    <string name="exits_same_account">该账号已经存在，请重新输入注册</string>
+
 </resources>

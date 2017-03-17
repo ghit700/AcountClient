@@ -10,6 +10,8 @@ import com.nan.acountclient.injector.component.DaggerActivityComponent;
 import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.base.BaseActivity;
 import com.nan.acountclient.utils.AppUtils;
+import com.tapadoo.alerter.Alert;
+import com.tapadoo.alerter.Alerter;
 
 import javax.inject.Inject;
 
@@ -30,6 +32,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @InjectView(R.id.rootView)
     CoordinatorLayout rootView;
+    private Alert mAlert;
 
     @Override
     protected int getLayout() {
@@ -69,12 +72,14 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void showLoading() {
-
+        mAlert= Alerter.create(this).setText(R.string.register_progress_hirt).show();
     }
 
     @Override
     public void hideLoading() {
-
+        if(mAlert!=null){
+            mAlert.hide();
+        }
     }
 
     @Override

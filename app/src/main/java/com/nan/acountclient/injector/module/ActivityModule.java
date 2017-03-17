@@ -1,8 +1,12 @@
 package com.nan.acountclient.injector.module;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.nan.acountclient.base.BaseView;
+import com.nan.acountclient.injector.PerActivity;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,9 +16,15 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
+    public Context context;
+    public ActivityModule(Context context) {
+        this.context=context;
+    }
 
-    public ActivityModule() {
-
+    @PerActivity
+    @Provides
+    public Context provideContext(){
+        return  context;
     }
 
 

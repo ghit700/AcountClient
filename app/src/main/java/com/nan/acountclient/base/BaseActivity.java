@@ -24,7 +24,6 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-import static com.nan.acountclient.R.id.tb;
 
 
 /**
@@ -59,12 +58,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     public void init() {
+        mContext=this;
         setStatusBar();
         initComponent();
         AppUtils.add(this);
         ButterKnife.inject(this);
         mPresenter.attachView(this);
-        mContext=this;
     }
 
     protected abstract int getLayout();
@@ -103,7 +102,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected ActivityComponent getActivityComponent(){
         return  DaggerActivityComponent.builder()
                 .applicationComponet(getApplicationComponent())
-                .activityModule(new ActivityModule())
+                .activityModule(new ActivityModule(mContext))
                 .build();
     }
 

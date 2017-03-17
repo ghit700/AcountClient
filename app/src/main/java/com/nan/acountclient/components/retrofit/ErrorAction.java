@@ -13,8 +13,8 @@ public abstract class ErrorAction implements Action1<Throwable> {
     public void call(Throwable throwable) {
         ErrorData errorData = new ErrorData();
         errorData = errorData.handleError(throwable);
-        call(errorData.getError());
+        call(errorData);
     }
 
-    public abstract void call(String msg);
+    public abstract void call(ErrorData errorData);
 }

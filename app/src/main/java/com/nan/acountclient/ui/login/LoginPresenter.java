@@ -7,6 +7,7 @@ import com.nan.acountclient.data.local.MainLocalService;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.data.DataResult;
+import com.nan.acountclient.entity.data.ErrorData;
 import com.nan.acountclient.ui.login.LoginContract.View;
 import com.nan.acountclient.utils.StringUtils;
 
@@ -62,9 +63,9 @@ public class LoginPresenter extends RxPresenter<View> implements LoginContract.P
                     }
                 }, new ErrorAction() {
                     @Override
-                    public void call(String msg) {
+                    public void call(ErrorData errorData) {
                         mView.hideLoading();
-                        mView.loginFail(msg);
+                        mView.loginFail(errorData.getError());
                     }
                 });
         addSubscribe(subscription);

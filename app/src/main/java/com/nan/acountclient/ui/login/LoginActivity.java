@@ -11,6 +11,8 @@ import com.nan.acountclient.R;
 import com.nan.acountclient.base.BaseActivity;
 import com.nan.acountclient.ui.main.MainActivity;
 import com.nan.acountclient.ui.register.RegisterActivity;
+import com.tapadoo.alerter.Alert;
+import com.tapadoo.alerter.Alerter;
 
 
 import butterknife.InjectView;
@@ -35,6 +37,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @InjectView(R.id.rootView)
     CoordinatorLayout rootView;
+    private Alert mAlert;
 
 
     @Override
@@ -79,12 +82,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLoading() {
-
+        mAlert= Alerter.create(this).setText(R.string.login_progress_hirt).show();
     }
 
     @Override
     public void hideLoading() {
-
+        if(mAlert!=null){
+            mAlert.hide();
+        }
     }
 
     @Override
@@ -97,6 +102,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void loginFail(String err) {
         Snackbar.make(rootView, err, Snackbar.LENGTH_LONG).show();
     }
+
+
 
 
 }
