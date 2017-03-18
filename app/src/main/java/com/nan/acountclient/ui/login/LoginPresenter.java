@@ -1,6 +1,7 @@
 package com.nan.acountclient.ui.login;
 
 
+import com.nan.acountclient.R;
 import com.nan.acountclient.components.retrofit.ErrorAction;
 import com.nan.acountclient.components.rx.RxPresenter;
 import com.nan.acountclient.data.local.MainLocalService;
@@ -19,6 +20,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
+import static com.nan.acountclient.utils.ToastUtils.mContext;
+
 
 /**
  * Created by wzn on 2017/1/6.
@@ -33,20 +36,20 @@ public class LoginPresenter extends RxPresenter<View> implements LoginContract.P
         this.localService = localService;
         this.remoteServiceAPI = remoteService;
     }
-    
+
 
     @Override
     public void login(String loginName, String pwd) {
         if (StringUtils.isNullBlank(loginName)) {
-            mView.loginFail("账号为空，请输入");
+            mView.showError(new ErrorData(mContext.getString(R.string.login_name_empty)));
             return;
         }
         if (StringUtils.isNullBlank(pwd)) {
-            mView.loginFail("密码为空，请输入");
+            mView.showError(new ErrorData(mContext.getString(R.string.login_pwd_empty)));
             return;
         }
         mView.showLoading();
-        Subscription subscription=remoteServiceAPI.login(loginName, pwd)
+        Subscription subscription = remoteServiceAPI.login(loginName, pwd)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DataResult>() {
                     @Override
@@ -58,14 +61,14 @@ public class LoginPresenter extends RxPresenter<View> implements LoginContract.P
                             localService.login(user);
                             mView.loginSuccess();
                         } else {
-                            mView.loginFail("登陆失败，账号或密码错误。");
+                            mView.showError(new ErrorData(mContext.getString(R.string.login_fail)));
                         }
                     }
                 }, new ErrorAction() {
                     @Override
                     public void call(ErrorData errorData) {
                         mView.hideLoading();
-                        mView.loginFail(errorData.getError());
+                        mView.showError(errorData);
                     }
                 });
         addSubscribe(subscription);

@@ -16,6 +16,14 @@ import static com.alibaba.fastjson.JSON.parseObject;
 
 public class ErrorData {
 
+    public ErrorData() {
+    }
+
+    public ErrorData(String error) {
+        this.error = error;
+    }
+
+
 
     /**
      * code : 401

@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.base.BaseActivity;
+import com.nan.acountclient.entity.data.ErrorData;
 import com.nan.acountclient.ui.main.MainActivity;
 import com.nan.acountclient.ui.register.RegisterActivity;
 import com.tapadoo.alerter.Alert;
@@ -82,7 +83,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLoading() {
-        mAlert= Alerter.create(this).setText(R.string.login_progress_hirt).show();
+        mAlert= Alerter.create(this)
+                .setText(R.string.login_progress_hirt)
+                .setBackgroundColor(R.color.colorPrimary)
+                .show();
     }
 
     @Override
@@ -93,15 +97,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
+    public void showError(ErrorData errorData) {
+        Snackbar.make(rootView, errorData.getError(), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void loginSuccess() {
         to(MainActivity.class, new Intent());
         finish();
     }
 
-    @Override
-    public void loginFail(String err) {
-        Snackbar.make(rootView, err, Snackbar.LENGTH_LONG).show();
-    }
+
 
 
 

@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
 
 import com.nan.acountclient.R;
+import com.nan.acountclient.entity.data.ErrorData;
 import com.nan.acountclient.injector.component.DaggerActivityComponent;
 import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.base.BaseActivity;
@@ -72,7 +73,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void showLoading() {
-        mAlert= Alerter.create(this).setText(R.string.register_progress_hirt).show();
+        mAlert= Alerter.create(this)
+                .setText(R.string.register_progress_hirt)
+                .setBackgroundColor(R.color.colorPrimary)
+                .show();
     }
 
     @Override
@@ -83,20 +87,21 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
-    public void registerSuccess() {
-
+    public void showError(ErrorData errorData) {
+        if (errorData.getError().contains("账号")) {
+            etRegisterLoginName.setError(errorData.getError());
+        } else if (errorData.getError().contains("密码")) {
+            etRegisterPwd.setError(errorData.getError());
+        }
+        Snackbar.make(rootView, errorData.getError(), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
-    public void registerFail(String err) {
-        if (err.contains("账号")) {
-            etRegisterLoginName.setError(err);
-        } else if (err.contains("密码")) {
-            etRegisterPwd.setError(err);
-        }
-        Snackbar.make(rootView, err, Snackbar.LENGTH_LONG).show();
-
+    public void registerSuccess() {
+        Snackbar.make(rootView, getString(R.string.register_success), Snackbar.LENGTH_LONG).show();
     }
+
+
 
 
 }

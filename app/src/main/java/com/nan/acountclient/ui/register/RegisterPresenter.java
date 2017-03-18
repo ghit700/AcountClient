@@ -38,11 +38,12 @@ public class RegisterPresenter extends RxPresenter<RegisterContract.View> implem
     @Override
     public void register(String loginName, String pwd) {
         if (StringUtils.isNullBlank(loginName)) {
-            mView.registerFail("账号为空，请输入账号");
+            ErrorData errorData=new ErrorData();
+            mView.showError(new ErrorData(mContext.getString(R.string.login_name_empty)));
             return;
         }
         if (StringUtils.isNullBlank(pwd)) {
-            mView.registerFail("密码为空，请输入密码");
+            mView.showError(new ErrorData(mContext.getString(R.string.login_pwd_empty)));
             return;
         }
         User user = new User();
@@ -63,11 +64,10 @@ public class RegisterPresenter extends RxPresenter<RegisterContract.View> implem
                     public void call(ErrorData errorData) {
                         mView.hideLoading();
                         if(errorData.getCode()==401){
-
-                            mView.registerFail(mContext.getString(R.string.exits_same_account));
-                        }else{
-                            mView.registerFail(errorData.getError());
+                            errorData.setError(mContext.getString(R.string.exits_same_account));
                         }
+                        mView.showError(errorData);
+
                     }
                 });
         addSubscribe(subscription);

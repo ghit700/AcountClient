@@ -9,13 +9,9 @@ import com.nan.acountclient.base.BaseView;
 
 public interface LoginContract {
     interface View extends BaseView {
-        void showLoading();
-
-        void hideLoading();
 
         void loginSuccess();
 
-        void loginFail(String err);
     }
 
     interface Presenter extends BasePresenter<View> {

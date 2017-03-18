@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.nan.acountclient.base.BasePresenter;
 import com.nan.acountclient.base.BaseView;
 
+import java.lang.ref.WeakReference;
+
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -14,6 +16,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public class RxPresenter<T extends BaseView> implements BasePresenter<T> {
     protected T mView;
+    private WeakReference<T> reference;
     protected CompositeSubscription mCompositeSubscription;
 
     protected void unSubscribe(){
@@ -30,7 +33,8 @@ public class RxPresenter<T extends BaseView> implements BasePresenter<T> {
 
     @Override
     public void attachView(@NonNull T view) {
-        this.mView=view;
+        reference=new WeakReference<>(view);
+        this.mView=reference.get();
     }
 
     @Override

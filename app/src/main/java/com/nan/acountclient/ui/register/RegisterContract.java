@@ -12,13 +12,9 @@ import static com.nan.acountclient.R.string.pwd;
 
 public interface RegisterContract {
     interface View extends BaseView {
-        void showLoading();
-
-        void hideLoading();
 
         void registerSuccess();
 
-        void registerFail(String err);
     }
 
     interface Presenter extends BasePresenter<View> {

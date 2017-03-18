@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.base.BaseActivity;
+import com.nan.acountclient.entity.data.ErrorData;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -91,5 +92,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return true;
             }
         });
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(ErrorData errorData) {
+
     }
 }
