@@ -10,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
  */
 public class User extends RealmObject {
     @PrimaryKey
-    private Long id;
+    private Integer id;
     /**
      * 账号
      */
@@ -36,11 +36,11 @@ public class User extends RealmObject {
     private String updatedAt;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

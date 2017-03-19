@@ -1,8 +1,6 @@
 package com.nan.acountclient.ui.register;
 
 import android.content.Context;
-import android.icu.math.MathContext;
-import android.support.annotation.NonNull;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.components.retrofit.ErrorAction;
@@ -10,7 +8,6 @@ import com.nan.acountclient.components.rx.RxPresenter;
 import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.data.DataResult;
-import com.nan.acountclient.base.BaseView;
 import com.nan.acountclient.entity.data.ErrorData;
 import com.nan.acountclient.utils.StringUtils;
 
@@ -20,7 +17,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-import static com.nan.acountclient.utils.ToastUtils.mContext;
 
 /**
  * Created by wzn on 2017/1/6.
@@ -28,11 +24,11 @@ import static com.nan.acountclient.utils.ToastUtils.mContext;
 
 public class RegisterPresenter extends RxPresenter<RegisterContract.View> implements RegisterContract.Presenter {
     private MainRemoteServiceAPI remoteServiceAPI;
-    private Context mContext;
     @Inject
-    public RegisterPresenter(MainRemoteServiceAPI remoteService,Context context) {
+    Context mContext;
+    @Inject
+    public RegisterPresenter(MainRemoteServiceAPI remoteService) {
         this.remoteServiceAPI = remoteService;
-        mContext=context;
     }
 
     @Override

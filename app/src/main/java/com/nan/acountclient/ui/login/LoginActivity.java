@@ -1,5 +1,6 @@
 package com.nan.acountclient.ui.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -9,15 +10,23 @@ import android.widget.Button;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.base.BaseActivity;
+import com.nan.acountclient.components.rx.RxBus;
+import com.nan.acountclient.event.RegisterEvent;
 import com.nan.acountclient.entity.data.ErrorData;
 import com.nan.acountclient.ui.main.MainActivity;
 import com.nan.acountclient.ui.register.RegisterActivity;
+import com.nan.acountclient.utils.AppUtils;
+import com.nan.acountclient.utils.SnackbarUtils;
+import com.nan.acountclient.utils.ToastUtils;
 import com.tapadoo.alerter.Alert;
 import com.tapadoo.alerter.Alerter;
 
 
 import butterknife.InjectView;
 import butterknife.OnClick;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 
 /**
@@ -65,7 +74,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void loadData() {
-
+        //注册功能回调
+        addSubscribe(
+                RxBus.getDefault().toObservable(RegisterEvent.class)
+                        .subscribe(new Action1<RegisterEvent>() {
+                            @Override
+                            public void call(RegisterEvent registerEvent) {
+                                etLoginName.setText(registerEvent.getLoginName());
+                                etPwd.setText("");
+                            }
+                        }));
     }
 
 
@@ -79,6 +97,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 to(RegisterActivity.class, new Intent());
                 break;
         }
+        AppUtils.closeInputMethodManager((Activity) mContext);
     }
 
     @Override
@@ -103,12 +122,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void loginSuccess() {
+        SnackbarUtils.show(rootView,R.string.login_success);
         to(MainActivity.class, new Intent());
         finish();
     }
-
-
-
 
 
 

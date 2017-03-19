@@ -6,8 +6,8 @@
     "build_directory": "D:\\project\\AcountClient\\app\\build",
     "build_script": "gradlew.bat :app:assembleDebug",
     "build_script_work_directory": "",
-    "build_tools_directory": "D:\\android\\adt-bundle-windows-x86-20140702\\sdk\\build-tools\\25.0.1",
-    "build_tools_version": "25.0.1",
+    "build_tools_directory": "D:\\android\\adt-bundle-windows-x86-20140702\\sdk\\build-tools\\25.0.2",
+    "build_tools_version": "25.0.2",
     "compile_sdk_directory": "D:\\android\\adt-bundle-windows-x86-20140702\\sdk\\platforms\\android-25",
     "compile_sdk_version": "android-25",
     "databinding": [

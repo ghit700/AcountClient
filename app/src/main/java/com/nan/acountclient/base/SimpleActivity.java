@@ -13,9 +13,18 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.nan.acountclient.components.app.AccountApplication;
+import com.nan.acountclient.injector.component.ActivityComponent;
+import com.nan.acountclient.injector.component.ApplicationComponet;
+import com.nan.acountclient.injector.component.DaggerActivityComponent;
+import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.utils.AppUtils;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 import static com.nan.acountclient.R.id.tb;
 
@@ -25,6 +34,8 @@ import static com.nan.acountclient.R.id.tb;
  */
 
 public abstract class SimpleActivity extends AppCompatActivity {
+    protected CompositeSubscription mCompositeSubscription;
+    @Inject
     protected Context mContext;
 
     @Override
@@ -32,7 +43,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         init();
-        initIntent();
         initData();
         initView();
         loadData();
@@ -42,18 +52,18 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         AppUtils.remove(this);
+        if (mCompositeSubscription!=null&&!mCompositeSubscription.isUnsubscribed()){
+            mCompositeSubscription.unsubscribe();
+        }
     }
 
     public void init() {
-        setStatusBar();
+        initComponent();
         AppUtils.add(this);
         ButterKnife.inject(this);
-        mContext = this;
     }
 
     protected abstract int getLayout();
-
-    protected abstract void initIntent();
 
     protected abstract void initData();
 
@@ -92,6 +102,22 @@ public abstract class SimpleActivity extends AppCompatActivity {
         });
     }
 
+    protected ActivityComponent getActivityComponent() {
+        return DaggerActivityComponent.builder()
+                .applicationComponet(getApplicationComponent())
+                .activityModule(new ActivityModule(this))
+                .build();
+    }
+
+    /**
+     * 初始化注入器
+     */
+    protected abstract void initComponent();
+
+    protected ApplicationComponet getApplicationComponent() {
+        return ((AccountApplication) getApplication()).getComponet();
+    }
+
     public void to(@NonNull final Class clazz, @NonNull final Intent intent) {
         intent.setClass(this, clazz);
         startActivity(intent);
@@ -100,5 +126,12 @@ public abstract class SimpleActivity extends AppCompatActivity {
     public void toForResult(@NonNull final Class clazz, @NonNull final Intent intent, @NonNull int requestCode) {
         intent.setClass(this, clazz);
         startActivityForResult(intent, requestCode);
+    }
+
+    protected void addSubscribe(Subscription subscription) {
+        if (mCompositeSubscription == null) {
+            mCompositeSubscription = new CompositeSubscription();
+        }
+        mCompositeSubscription.add(subscription);
     }
 }

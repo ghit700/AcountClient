@@ -6,30 +6,61 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.nan.acountclient.R;
+import com.nan.acountclient.base.SimpleActivity;
+import com.nan.acountclient.data.local.MainLocalService;
+import com.nan.acountclient.data.local.impl.MainLocalServiceImpl;
+import com.nan.acountclient.data.remote.MainRemoteService;
+import com.nan.acountclient.data.remote.impl.MainRemoteServiceAPI;
+import com.nan.acountclient.ui.add.AddAccountActivity;
 import com.nan.acountclient.ui.login.LoginActivity;
+import com.nan.acountclient.ui.main.MainActivity;
 import com.nan.acountclient.utils.AppUtils;
+import com.nan.acountclient.utils.SettingPrefUtils;
+
+import javax.inject.Inject;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by wzn on 2016/12/25.
  */
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends SimpleActivity {
 
+    @Inject
+    MainLocalService mainLocalService;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+    protected int getLayout() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void loadData() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                            if (SettingPrefUtils.getLoginUid() != 0 && mainLocalService.getUser()!=null) {
+                                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                            } else {
+                                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                            }
                             finish();
                         }
                     });
@@ -39,6 +70,11 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    @Override
+    protected void initComponent() {
+        getActivityComponent().inject(this);
     }
 
 

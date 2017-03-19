@@ -13,21 +13,66 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!--actionbar-->
             <include layout="@layout/layout_toolbar"></include>
 
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvMainBillOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:text="支出：1000元"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvMainBillIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvMainBillOut"
+                    android:layout_centerHorizontal="true"
+                    android:text="收入：1000元"
+
+                    android:textColor="@color/white" />
+
+            </android.support.percent.PercentRelativeLayout>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tlMainBill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+
+            </android.support.design.widget.TabLayout>
+
+
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        <android.support.design.widget.CoordinatorLayout
+            android:background="#000"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             android:fitsSystemWindows="true">
 
             <android.support.percent.PercentRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vpMainBill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v4.view.ViewPager>
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/btnMainAdd"
@@ -51,6 +96,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:visibility="gone"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_actions" />
 </android.support.v4.widget.DrawerLayout>

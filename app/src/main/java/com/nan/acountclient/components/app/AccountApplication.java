@@ -6,7 +6,6 @@ import com.antfortune.freeline.FreelineCore;
 import com.nan.acountclient.injector.component.ApplicationComponet;
 import com.nan.acountclient.injector.component.DaggerApplicationComponet;
 import com.nan.acountclient.injector.module.ApplicationModule;
-import com.nan.acountclient.utils.ToastUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -19,6 +18,12 @@ public class AccountApplication extends Application {
      */
     ApplicationComponet mComponet;
 
+    private static AccountApplication ins;
+
+    public static AccountApplication getIns(){
+        return ins;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,13 +31,12 @@ public class AccountApplication extends Application {
     }
 
     private void init() {
-        ToastUtils.register(this);
+        ins=this;
         FreelineCore.init(this);
         LeakCanary.install(this);
         mComponet = DaggerApplicationComponet.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-        ToastUtils.register(this);
     }
 
     public ApplicationComponet getComponet(){

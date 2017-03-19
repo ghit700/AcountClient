@@ -79,8 +79,12 @@ public class ApplicationModule {
     @Singleton
     @Provides
     public MainLocalService provideMainLocalService() {
-        return new MainLocalServiceImpl(mContext);
+        return new MainLocalServiceImpl(mContext,mRealm);
     }
+
+
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package com.nan.acountclient.components.rxbus;
+package com.nan.acountclient.components.rx;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;

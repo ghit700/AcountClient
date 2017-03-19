@@ -1,6 +1,7 @@
 package com.nan.acountclient.data.remote;
 
 
+import com.nan.acountclient.entity.Bill;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.data.DataResult;
 
@@ -29,5 +30,6 @@ public interface MainRemoteService {
      */
     @POST("user")
     Observable<DataResult<User>> register(@Body User user);
-
+    @POST("bill")
+    Observable<DataResult<Bill>> saveBill(@Body Bill bill);
 }

@@ -8,6 +8,7 @@ import com.nan.acountclient.injector.module.ApplicationModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import io.realm.Realm;
 
 /**
  * Created by wzn on 2016/11/28.
@@ -19,5 +20,7 @@ public interface ApplicationComponet {
     MainLocalService getMainLocalService();
 
     MainRemoteServiceAPI getMainRemoteServiceAPI();
+
+    Realm getRealm();
 
 }

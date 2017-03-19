@@ -1,6 +1,8 @@
 package com.nan.acountclient.ui.login;
 
 
+import android.content.Context;
+
 import com.nan.acountclient.R;
 import com.nan.acountclient.components.retrofit.ErrorAction;
 import com.nan.acountclient.components.rx.RxPresenter;
@@ -20,7 +22,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-import static com.nan.acountclient.utils.ToastUtils.mContext;
 
 
 /**
@@ -30,6 +31,8 @@ import static com.nan.acountclient.utils.ToastUtils.mContext;
 public class LoginPresenter extends RxPresenter<View> implements LoginContract.Presenter {
     private MainLocalService localService;
     private MainRemoteServiceAPI remoteServiceAPI;
+    @Inject
+    Context mContext;
 
     @Inject
     public LoginPresenter(MainLocalService localService, MainRemoteServiceAPI remoteService) {

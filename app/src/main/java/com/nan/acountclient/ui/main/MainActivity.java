@@ -1,19 +1,26 @@
 package com.nan.acountclient.ui.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.nan.acountclient.R;
 import com.nan.acountclient.base.BaseActivity;
+import com.nan.acountclient.ui.add.AddAccountActivity;
+import com.nan.acountclient.ui.add.TagFragment;
 import com.nan.acountclient.entity.data.ErrorData;
 
 import butterknife.ButterKnife;
@@ -35,6 +42,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView navView;
     @InjectView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @InjectView(R.id.tvMainBillOut)
+    TextView tvMainBillOut;
+    @InjectView(R.id.tvMainBillIn)
+    TextView tvMainBillIn;
+    @InjectView(R.id.tlMainBill)
+    TabLayout tlMainBill;
+    @InjectView(R.id.vpMainBill)
+    ViewPager vpMainBill;
 
     @Override
     protected int getLayout() {
@@ -49,9 +64,35 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initView() {
         setToolBar(tb, "首页");
+        tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-
+        //drawer
         setupDrawerContent(navView);
+        //tab
+        vpMainBill.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return new TagFragment(position);
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return position+" ";
+            }
+        });
+        tlMainBill.setupWithViewPager(vpMainBill);
+
+
     }
 
     @Override
@@ -67,6 +108,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.btnMainAdd)
     public void onClick() {
+        to(AddAccountActivity.class, new Intent());
     }
 
 
@@ -84,7 +126,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                 }
                 item.setCheckable(true);

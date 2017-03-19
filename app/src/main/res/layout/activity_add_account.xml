@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--actionbar-->
+        <include layout="@layout/layout_toolbar"></include>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/imgAddTag"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/tvAddNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:gravity="right"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:text="0"
+                android:textColor="@color/colorPrimary"
+                android:textSize="40sp" />
+        </LinearLayout>
+
+        <EditText
+
+            android:id="@+id/etAddRemark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:hint="@string/remark"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpAddTag"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/listAddNumberButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</LinearLayout>

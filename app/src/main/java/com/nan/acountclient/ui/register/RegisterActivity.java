@@ -1,5 +1,6 @@
 package com.nan.acountclient.ui.register;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -10,7 +11,10 @@ import com.nan.acountclient.entity.data.ErrorData;
 import com.nan.acountclient.injector.component.DaggerActivityComponent;
 import com.nan.acountclient.injector.module.ActivityModule;
 import com.nan.acountclient.base.BaseActivity;
+import com.nan.acountclient.event.RegisterEvent;
+import com.nan.acountclient.ui.login.LoginActivity;
 import com.nan.acountclient.utils.AppUtils;
+import com.nan.acountclient.components.rx.RxBus;
 import com.tapadoo.alerter.Alert;
 import com.tapadoo.alerter.Alerter;
 
@@ -39,7 +43,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     protected int getLayout() {
         return R.layout.activity_register;
     }
-
 
 
     @Override
@@ -73,7 +76,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void showLoading() {
-        mAlert= Alerter.create(this)
+        mAlert = Alerter.create(this)
                 .setText(R.string.register_progress_hirt)
                 .setBackgroundColor(R.color.colorPrimary)
                 .show();
@@ -81,12 +84,18 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void hideLoading() {
-        if(mAlert!=null){
+        if (mAlert != null) {
             mAlert.hide();
         }
     }
 
     @Override
+    public void registerSuccess() {
+        Snackbar.make(rootView, getString(R.string.register_success), Snackbar.LENGTH_LONG).show();
+        RxBus.getDefault().post(new RegisterEvent(etRegisterLoginName.getText().toString().trim()));
+        finish();
+    }
+
     public void showError(ErrorData errorData) {
         if (errorData.getError().contains("账号")) {
             etRegisterLoginName.setError(errorData.getError());
@@ -95,13 +104,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         }
         Snackbar.make(rootView, errorData.getError(), Snackbar.LENGTH_LONG).show();
     }
-
-    @Override
-    public void registerSuccess() {
-        Snackbar.make(rootView, getString(R.string.register_success), Snackbar.LENGTH_LONG).show();
-    }
-
-
 
 
 }

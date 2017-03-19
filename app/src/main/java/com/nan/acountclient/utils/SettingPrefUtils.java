@@ -1,8 +1,9 @@
 package com.nan.acountclient.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.nan.acountclient.components.app.AccountApplication;
 
 /**
  * Created by wzn on 2017/1/5.
@@ -11,40 +12,43 @@ import android.preference.PreferenceManager;
 public class SettingPrefUtils {
     /**
      * 设置登陆
-     * @param context
+     *
      * @param uid
      */
-    public static void setLoginUid(Context context,Long uid){
-        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putLong("loginUid",uid).apply();
+    public static void setLoginUid(int uid) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AccountApplication.getIns());
+        prefs.edit().putInt("loginUid", uid).apply();
+    }
+
+    public static int getLoginUid(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AccountApplication.getIns());
+        return prefs.getInt("loginUid",0);
     }
 
     /**
      * 清除登陆
-     * @param context
      */
-    public static void clearLogin(Context context){
-        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(context);
+    public static void clearLogin() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AccountApplication.getIns());
         prefs.edit().remove("loginUid").apply();
     }
 
     /**
      * 设置网络状态
-     * @param context
+     *
      * @param isOffLine
      */
-    public static void setOffLine(Context context,boolean isOffLine){
-        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putBoolean("offLine",isOffLine).apply();
+    public static void setOffLine(boolean isOffLine) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AccountApplication.getIns());
+        prefs.edit().putBoolean("offLine", isOffLine).apply();
     }
 
     /**
      * 获取网络状态
-     * @param context
      */
-    public static void getOffLine(Context context){
-        SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.getBoolean("offLine",false);
+    public static void getOffLine() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(AccountApplication.getIns());
+        prefs.getBoolean("offLine", false);
     }
 
 }

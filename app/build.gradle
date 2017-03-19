@@ -74,4 +74,6 @@ dependencies {
     //bmob-sdk:3.4.6需要依赖okhttp（2.4.0）、okio（2.4.0），而support-v4（23.2.1）及org.apache.http.legacy包则用于兼容Android6.0系统，具体可查看下面注释[1]的解释
     //alerter
     compile 'com.tapadoo.android:alerter:1.0.6'
+    //realm库
+    compile 'net.steamcrafted:materialiconlib:1.1.3'
 }

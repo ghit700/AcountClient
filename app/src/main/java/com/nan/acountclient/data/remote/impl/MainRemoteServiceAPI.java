@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nan.acountclient.components.retrofit.FastJsonConverterFactory;
 import com.nan.acountclient.config.Config;
 import com.nan.acountclient.data.remote.MainRemoteService;
+import com.nan.acountclient.entity.Bill;
 import com.nan.acountclient.entity.User;
 import com.nan.acountclient.entity.data.DataResult;
 
@@ -44,5 +45,9 @@ public class MainRemoteServiceAPI {
 
     public Observable<DataResult<User>>  register(User user) {
         return mainRemoteService.register(user).subscribeOn(Schedulers.io());
+    }
+
+    public Observable<DataResult<Bill>> saveBill(Bill bill){
+        return mainRemoteService.saveBill(bill).subscribeOn(Schedulers.io());
     }
 }
